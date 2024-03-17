@@ -12,6 +12,11 @@
         android:layout_height="wrap_content"
         android:icon="@drawable/icon_home"
         android:title="Favorite" />
+
+    <item android:title=""
+        android:id="@+id/placeHolder"
+        android:enabled="false"/>
+
     <item
         android:id="@+id/detailFragment"
         android:layout_width="wrap_content"
