@@ -25,14 +25,4 @@ class HomeViewModel @Inject constructor(
             foodList.value = foodsRepository.foodList()
         }
     }
-
-    fun addFoodCart( foodName: String,
-                     foodImageName: String,
-                     foodPrice: Int,
-                     foodOrderQuantity: Int,
-                     userName: String){
-        CoroutineScope(Dispatchers.Main).launch {
-            foodsRepository.addFoodCart(foodName, foodImageName, foodPrice, foodOrderQuantity, userName)
-        }
-    }
 }

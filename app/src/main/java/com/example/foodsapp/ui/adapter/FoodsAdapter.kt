@@ -37,9 +37,9 @@ class FoodsAdapter (private var foodsList: List<Foods>, var viewModel: HomeViewM
             Navigation.actions(it, actions)
         }
 
-        holder.binding.imageViewAdd.setOnClickListener {
+      /*  holder.binding.imageViewAdd.setOnClickListener {
             viewModel.addFoodCart(foods.foodName!!, foods.foodImageName!!, foods.foodPrice!!,2,"talhayi")
-        }
+        }*/
 
        /* holder.binding.deleteIV.setOnClickListener {
             viewModel.delete(contacts.personId)
