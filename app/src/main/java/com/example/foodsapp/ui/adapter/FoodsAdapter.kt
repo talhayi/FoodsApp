@@ -2,11 +2,14 @@ package com.example.foodsapp.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.foodsapp.data.model.Foods
 import com.example.foodsapp.databinding.FoodItemLayoutBinding
+import com.example.foodsapp.ui.view.HomeFragmentDirections
 import com.example.foodsapp.ui.viewmodel.HomeViewModel
+import com.example.foodsapp.util.actions
 
 class FoodsAdapter (private var foodsList: List<Foods>, var viewModel: HomeViewModel): RecyclerView.Adapter<FoodsAdapter.FoodsViewHolder>() {
 
@@ -29,10 +32,10 @@ class FoodsAdapter (private var foodsList: List<Foods>, var viewModel: HomeViewM
             Glide.with(root).load(url).override(1000, 500).into(imageViewFood)
         }
 
-       /* holder.binding.personCV.setOnClickListener {
-            val actions = HomeFragmentDirections.actionHomeFragmentToDetailPersonFragment(contacts)
+        holder.binding.cardViewRestaurant.setOnClickListener {
+            val actions = HomeFragmentDirections.actionHomeFragmentToDetailFragment(foods)
             Navigation.actions(it, actions)
-        }*/
+        }
 
        /* holder.binding.deleteIV.setOnClickListener {
             viewModel.delete(contacts.personId)

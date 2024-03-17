@@ -24,7 +24,11 @@
         android:id="@+id/detailFragment"
         android:name="com.example.foodsapp.ui.view.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="food"
+            app:argType="com.example.foodsapp.data.model.Foods" />
+    </fragment>
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.example.foodsapp.ui.view.CartFragment"
