@@ -39,6 +39,10 @@ class CartAdapter (private var cartsList: List<Cart>, var viewModel: CartViewMod
             Glide.with(root).load(url).override(1000, 500).into(imageViewFood)
         }
 
+
+        holder.binding.imageViewDelete.setOnClickListener {
+            viewModel.deleteFoodCart(carts.cartFoodId!!, carts.userName!!)
+        }
        /* holder.binding.cardViewRestaurant.setOnClickListener {
             val actions = HomeFragmentDirections.actionHomeFragmentToDetailFragment(foods)
             Navigation.actions(it, actions)

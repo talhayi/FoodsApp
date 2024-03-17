@@ -33,4 +33,9 @@ class FoodsDataSource(
             return@withContext foodsApi.cartList(userName).cart
         }
 
+    suspend fun deleteFoodCart(
+       cartFoodId: Int,
+        userName: String,
+    ): CRUDResponse =
+        foodsApi.deleteFoodCart(cartFoodId, userName)
 }

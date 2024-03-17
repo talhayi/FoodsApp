@@ -24,4 +24,10 @@ class FoodsRepository(
 
     suspend fun cartList(userName: String): List<Cart> =
        foodsDataSource.cartList(userName)
+
+    suspend fun deleteFoodCart(
+        cartFoodId: Int,
+        userName: String,
+    ): CRUDResponse =
+        foodsDataSource.deleteFoodCart(cartFoodId, userName)
 }

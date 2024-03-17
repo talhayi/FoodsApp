@@ -27,4 +27,11 @@ interface FoodsApi {
     suspend fun cartList(
         @Field("kullanici_adi") userName: String,
     ): CartResponse
+
+    @POST("yemekler/sepettenYemekSil.php")
+    @FormUrlEncoded
+    suspend fun deleteFoodCart(
+        @Field("sepet_yemek_id") cartFoodId: Int,
+        @Field("kullanici_adi") userName: String,
+    ): CRUDResponse
 }
