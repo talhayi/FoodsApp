@@ -29,6 +29,7 @@ class HomeFragment : Fragment() {
             foodsAdapter = FoodsAdapter(foodList, viewModel)
             binding.recyclerView.adapter = foodsAdapter
             binding.recyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+
         }
         return binding.root
     }
