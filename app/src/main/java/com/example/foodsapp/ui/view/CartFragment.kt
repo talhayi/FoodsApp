@@ -7,12 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.foodsapp.databinding.FragmentCartBinding
 import com.example.foodsapp.ui.adapter.CartAdapter
-import com.example.foodsapp.ui.adapter.FoodsAdapter
 import com.example.foodsapp.ui.viewmodel.CartViewModel
-import com.example.foodsapp.ui.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,7 +30,7 @@ class CartFragment : Fragment() {
             binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
             var foodTotalPrice = 0
             var cartTotalPrice = 0
-            for (cart in cartList){
+            for (cart in cartList) {
                 foodTotalPrice = cart.foodPrice!! * cart.foodOrderQuantity!!
                 cartTotalPrice += foodTotalPrice
             }

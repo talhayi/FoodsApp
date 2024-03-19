@@ -19,9 +19,12 @@ class CartViewModel @Inject constructor(
 
     val cartList = MutableLiveData<List<Cart>>()
 
-    fun cartList(userName: String){
+    fun cartList(userName: String) {
         CoroutineScope(Dispatchers.Main).launch {
+            //try {
             cartList.value = foodsRepository.cartList(userName)
+            //}catch (_: Exception){}
+
         }
     }
 
