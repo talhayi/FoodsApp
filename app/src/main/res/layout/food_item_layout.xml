@@ -8,11 +8,10 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewRestaurant"
-        android:layout_width="wrap_content"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
-        app:cardCornerRadius="8dp"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,81 +23,54 @@
 
             <ImageView
                 android:id="@+id/imageViewFood"
-                android:layout_width="match_parent"
-                android:layout_height="140dp"
+                android:layout_width="120dp"
+                android:layout_height="90dp"
                 android:src="@drawable/hamburger"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/imageViewFavorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="4dp"
-                android:background="@drawable/background_favorite_imageview"
-                android:padding="3dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/icon_favorite_border" />
 
             <TextView
                 android:id="@+id/textViewFoodName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:layout_marginTop="2dp"
                 android:layout_marginEnd="4dp"
                 android:gravity="center_horizontal"
                 android:text="Food Name"
-                android:textColor="@color/text_color"
-                android:textSize="12sp"
+                android:textColor="@color/navy_blue"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageViewFood" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/textViewPrice"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="4dp"
                 android:gravity="center_horizontal"
-                android:text="Ücretsiz Gönderim"
-                android:textColor="@color/text_color"
-                android:textSize="10sp"
+                android:text="₺ 200"
+                android:textColor="@color/primary_color"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewFoodName" />
 
-            <TextView
-                android:id="@+id/textViewPrice"
-                android:layout_width="wrap_content"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonAddCart"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="4dp"
-                android:text="₺ 3"
-                android:textColor="@color/text_color"
-                android:textSize="10sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-            <ImageView
-                android:id="@+id/imageViewAdd"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginEnd="4dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textViewPrice"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/background_button"
+                android:text="SEPETE EKLE"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textViewPrice"
-                app:srcCompat="@drawable/icon_add" />
-
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewPrice" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
