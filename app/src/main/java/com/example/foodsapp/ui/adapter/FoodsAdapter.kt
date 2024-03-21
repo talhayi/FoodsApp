@@ -37,7 +37,7 @@ class FoodsAdapter (private var foodsList: List<Foods>, var viewModel: HomeViewM
             Navigation.actions(it, actions)
         }
 
-      /*  holder.binding.imageViewAdd.setOnClickListener {
+        /*holder.binding.buttonAddCart.setOnClickListener {
             viewModel.addFoodCart(foods.foodName!!, foods.foodImageName!!, foods.foodPrice!!,2,"talhayi")
         }*/
 
