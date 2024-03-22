@@ -30,4 +30,14 @@ class FoodsRepository(
         userName: String,
     ): CRUDResponse =
         foodsDataSource.deleteFoodCart(cartFoodId, userName)
+
+    suspend fun addFavorite(foods: Foods) =
+        foodsDataSource.addFavorite(foods)
+
+    fun getFavoriteList() =
+        foodsDataSource.getFavoriteList()
+
+    suspend fun deleteFavorite(foods: Foods){
+        foodsDataSource.deleteFavorite(foods)
+    }
 }

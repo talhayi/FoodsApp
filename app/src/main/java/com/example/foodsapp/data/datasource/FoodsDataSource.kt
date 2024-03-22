@@ -38,4 +38,14 @@ class FoodsDataSource(
         userName: String,
     ): CRUDResponse =
         foodsApi.deleteFoodCart(cartFoodId, userName)
+
+    suspend fun addFavorite(foods: Foods) {
+            foodsDao.insert(foods)
+    }
+
+    fun getFavoriteList() = foodsDao.getFavoriteList()
+
+    suspend fun deleteFavorite(foods: Foods){
+        foodsDao.deleteFavorite(foods)
+    }
 }
