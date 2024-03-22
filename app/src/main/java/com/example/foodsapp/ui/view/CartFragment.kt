@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.foodsapp.R
 import com.example.foodsapp.databinding.FragmentCartBinding
 import com.example.foodsapp.ui.adapter.CartAdapter
 import com.example.foodsapp.ui.viewmodel.CartViewModel
@@ -40,6 +42,9 @@ class CartFragment : Fragment() {
             binding.TextViewCartTotal.text = "${cartTotalPrice + 10} ₺"
         }
         viewModel.cartList("talhayi")
+        binding.imageViewBack.setOnClickListener {
+            Navigation.findNavController(it).navigate(R.id.action_cartFragment_to_homeFragment)
+        }
         return binding.root
     }
 }

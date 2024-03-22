@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
@@ -92,6 +93,11 @@ class DetailFragment : Fragment() {
                 }
             }
         }
+
+        binding.imageViewBack.setOnClickListener {
+            Navigation.findNavController(it).navigate(R.id.action_detailFragment_to_homeFragment)
+        }
+
         return binding.root
     }
 }
