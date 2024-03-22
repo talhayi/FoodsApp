@@ -34,7 +34,10 @@ class CartFragment : Fragment() {
                 foodTotalPrice = cart.foodPrice!! * cart.foodOrderQuantity!!
                 cartTotalPrice += foodTotalPrice
             }
-            binding.TextViewCartTotal.text = cartTotalPrice.toString()
+            val taxRate = cartTotalPrice * 0.08
+            binding.textViewSubtotal.text = String.format("%.2f", cartTotalPrice - taxRate)
+            binding.textViewTax.text = "$taxRate ₺"
+            binding.TextViewCartTotal.text = "${cartTotalPrice + 10} ₺"
         }
         viewModel.cartList("talhayi")
         return binding.root

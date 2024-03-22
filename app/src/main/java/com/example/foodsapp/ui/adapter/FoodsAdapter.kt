@@ -8,10 +8,10 @@ import com.bumptech.glide.Glide
 import com.example.foodsapp.data.model.Foods
 import com.example.foodsapp.databinding.FoodItemLayoutBinding
 import com.example.foodsapp.ui.view.HomeFragmentDirections
-import com.example.foodsapp.ui.viewmodel.HomeViewModel
+import com.example.foodsapp.ui.viewmodel.DetailViewModel
 import com.example.foodsapp.util.actions
 
-class FoodsAdapter (private var foodsList: List<Foods>, var viewModel: HomeViewModel): RecyclerView.Adapter<FoodsAdapter.FoodsViewHolder>() {
+class FoodsAdapter (private var foodsList: List<Foods>, var viewModel: DetailViewModel): RecyclerView.Adapter<FoodsAdapter.FoodsViewHolder>() {
 
     inner class FoodsViewHolder(var binding: FoodItemLayoutBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -37,12 +37,8 @@ class FoodsAdapter (private var foodsList: List<Foods>, var viewModel: HomeViewM
             Navigation.actions(it, actions)
         }
 
-        /*holder.binding.buttonAddCart.setOnClickListener {
-            viewModel.addFoodCart(foods.foodName!!, foods.foodImageName!!, foods.foodPrice!!,2,"talhayi")
-        }*/
-
-       /* holder.binding.deleteIV.setOnClickListener {
-            viewModel.delete(contacts.personId)
-        }*/
+        holder.binding.buttonAddCart.setOnClickListener {
+            viewModel.addFoodCart(foods.foodName!!, foods.foodImageName!!, foods.foodPrice!!,1,"talhayi")
+        }
     }
 }

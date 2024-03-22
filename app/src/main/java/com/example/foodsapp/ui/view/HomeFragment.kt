@@ -6,11 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.foodsapp.R
 import com.example.foodsapp.databinding.FragmentHomeBinding
 import com.example.foodsapp.ui.adapter.FoodsAdapter
+import com.example.foodsapp.ui.viewmodel.DetailViewModel
 import com.example.foodsapp.ui.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModels()
+    private val detailViewModel: DetailViewModel by viewModels()
     private lateinit var foodsAdapter: FoodsAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,7 +26,7 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         viewModel.foodList.observe(viewLifecycleOwner){foodList->
-            foodsAdapter = FoodsAdapter(foodList, viewModel)
+            foodsAdapter = FoodsAdapter(foodList, detailViewModel)
             binding.recyclerView.adapter = foodsAdapter
             binding.recyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 

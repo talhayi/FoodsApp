@@ -1,17 +1,11 @@
 package com.example.foodsapp.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.foodsapp.data.model.Cart
-import com.example.foodsapp.data.model.Foods
 import com.example.foodsapp.databinding.CartItemLayoutBinding
-import com.example.foodsapp.databinding.FoodItemLayoutBinding
-import com.example.foodsapp.ui.view.HomeFragmentDirections
 import com.example.foodsapp.ui.viewmodel.CartViewModel
-import com.example.foodsapp.ui.viewmodel.HomeViewModel
-import com.example.foodsapp.util.actions
 
 class CartAdapter (private var cartsList: List<Cart>, var viewModel: CartViewModel): RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
@@ -27,18 +21,33 @@ class CartAdapter (private var cartsList: List<Cart>, var viewModel: CartViewMod
     }
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
         val carts = cartsList[position]
+        var totalAmount = 0
         val url = "http://kasimadalan.pe.hu/yemekler/resimler/${carts.foodImageName}"
         holder.binding.apply {
             textViewFoodNameCart.text = carts.foodName
-            textViewPriceCart.text = "₺ ${carts.foodPrice}"
+            textViewPriceCart.text = "${carts.foodPrice} ₺"
             textViewQuantity.text = carts.foodOrderQuantity.toString()
             val price = carts.foodPrice
-            val quantity = carts.foodOrderQuantity
+            var quantity = carts.foodOrderQuantity
             val totalPrice = price!! * quantity!!
-            textViewTotalPrice.text = totalPrice.toString()
+            textViewTotalPrice.text = "$totalPrice ₺"
             Glide.with(root).load(url).override(1000, 500).into(imageViewFood)
-        }
 
+            buttonIncrease.setOnClickListener {
+                quantity++
+                totalAmount = carts.foodPrice!! * quantity
+                textViewTotalPrice.text = totalAmount.toString()
+                textViewQuantity.text = quantity.toString()
+            }
+            buttonDecrease.setOnClickListener {
+                if (quantity != 1) {
+                    quantity--
+                }
+                totalAmount = carts.foodPrice!! * quantity
+                textViewTotalPrice.text = totalAmount.toString()
+                textViewQuantity.text = quantity.toString()
+            }
+        }
 
         holder.binding.imageViewDelete.setOnClickListener {
             viewModel.deleteFoodCart(carts.cartFoodId!!, carts.userName!!)
