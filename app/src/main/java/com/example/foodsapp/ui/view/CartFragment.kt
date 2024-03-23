@@ -12,6 +12,7 @@ import com.example.foodsapp.R
 import com.example.foodsapp.databinding.FragmentCartBinding
 import com.example.foodsapp.ui.adapter.CartAdapter
 import com.example.foodsapp.ui.viewmodel.CartViewModel
+import com.example.foodsapp.util.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,9 +38,24 @@ class CartFragment : Fragment() {
                 cartTotalPrice += foodTotalPrice
             }
             val taxRate = cartTotalPrice * 0.08
-            binding.textViewSubtotal.text = String.format("%.2f", cartTotalPrice - taxRate)
+            val subtotal = String.format("%.1f", cartTotalPrice - taxRate)
+            binding.textViewSubtotal.text = "$subtotal ₺"
             binding.textViewTax.text = "$taxRate ₺"
+            binding.textViewDelivery.text = "10 ₺"
             binding.TextViewCartTotal.text = "${cartTotalPrice + 10} ₺"
+
+            binding.buttonApprove.setOnClickListener {
+                viewModel.cartList.value = emptyList()
+                for (cart in cartList) {
+                    viewModel.deleteFoodCart(cart.cartFoodId!!, "talhayi")
+                }
+                if (cartList.isNotEmpty()){
+                    toast("Sepetiniz onaylanmıştır")
+                }
+                binding.textViewDelivery.text = "0.0 ₺"
+                binding.TextViewCartTotal.text = "0.0 ₺"
+            }
+
         }
         viewModel.cartList("talhayi")
         binding.imageViewBack.setOnClickListener {
