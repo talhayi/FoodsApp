@@ -2,9 +2,7 @@ package com.example.foodsapp.ui.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.foodsapp.data.model.CRUDResponse
 import com.example.foodsapp.data.model.Cart
-import com.example.foodsapp.data.model.Foods
 import com.example.foodsapp.data.repository.FoodsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -18,13 +16,11 @@ class CartViewModel @Inject constructor(
 ): ViewModel() {
 
     val cartList = MutableLiveData<List<Cart>>()
-
     fun cartList(userName: String) {
         CoroutineScope(Dispatchers.Main).launch {
-            //try {
-            cartList.value = foodsRepository.cartList(userName)
-            //}catch (_: Exception){}
-
+            try {
+                cartList.value = foodsRepository.cartList(userName)
+            } catch (_: Exception) { }
         }
     }
 
@@ -34,7 +30,11 @@ class CartViewModel @Inject constructor(
     ) {
         CoroutineScope(Dispatchers.Main).launch {
             foodsRepository.deleteFoodCart(cartFoodId, userName)
-            cartList(userName)
+            if (cartList.value?.size == 1){
+                cartList.value = emptyList()
+            }else{
+                cartList(userName)
+            }
         }
     }
 }
