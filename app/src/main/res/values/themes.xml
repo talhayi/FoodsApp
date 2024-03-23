@@ -4,7 +4,7 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="android:windowTranslucentStatus">false</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
+"        <item name="android:statusBarColor">@color/app_background</item>
     </style>
 
     <style name="Theme.FoodsApp" parent="Base.Theme.FoodsApp" />

@@ -18,13 +18,11 @@
         android:enabled="false"/>
 
     <item
-        android:id="@+id/detailFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/icon_home"
         android:title="Detail" />
     <item
-        android:id="@+id/cartFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/icon_home"
