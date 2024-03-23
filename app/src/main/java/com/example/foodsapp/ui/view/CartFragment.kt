@@ -37,8 +37,9 @@ class CartFragment : Fragment() {
                 foodTotalPrice = cart.foodPrice!! * cart.foodOrderQuantity!!
                 cartTotalPrice += foodTotalPrice
             }
-            val taxRate = cartTotalPrice * 0.08
-            val subtotal = String.format("%.1f", cartTotalPrice - taxRate)
+            val taxRateCal = cartTotalPrice * 0.08
+            val subtotal = String.format("%.1f", cartTotalPrice - taxRateCal)
+            val taxRate = String.format("%.1f", taxRateCal)
             binding.textViewSubtotal.text = "$subtotal ₺"
             binding.textViewTax.text = "$taxRate ₺"
             binding.textViewDelivery.text = "10 ₺"
@@ -52,8 +53,8 @@ class CartFragment : Fragment() {
                 if (cartList.isNotEmpty()){
                     toast("Sepetiniz onaylanmıştır")
                 }
-                binding.textViewDelivery.text = "0.0 ₺"
-                binding.TextViewCartTotal.text = "0.0 ₺"
+                binding.textViewDelivery.text = "0,0 ₺"
+                binding.TextViewCartTotal.text = "0,0 ₺"
             }
 
         }
