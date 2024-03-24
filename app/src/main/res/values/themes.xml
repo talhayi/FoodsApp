@@ -15,4 +15,15 @@
     <style name="ThemeOverlay.BottomNav" parent="">
         <item name="colorControlHighlight">@android:color/transparent</item>
     </style>
+
+    <style name="AlertDialogStyle" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="buttonBarButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog</item>
+    </style>
+
+    <style name="Widget.MaterialComponents.Button.TextButton.Dialog" parent="Widget.MaterialComponents.Button.TextButton">
+        <!-- Negatif buton stilleri -->
+        <item name="android:textColor">@color/primary_color</item>
+        <item name="backgroundTint">@color/white</item>
+    </style>
+
 </resources>
