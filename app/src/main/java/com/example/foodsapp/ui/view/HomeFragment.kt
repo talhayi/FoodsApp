@@ -40,11 +40,12 @@ class HomeFragment : Fragment() {
             foodsAdapter = FoodsAdapter(foodList, detailViewModel)
             binding.recyclerView.adapter = foodsAdapter
             binding.recyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            setFilterFoodName()
         }
         binding.constraintLayout.setOnClickListener {
             filterAlertDialog()
         }
-        setFilterFoodName()
+
         return binding.root
     }
 

@@ -44,26 +44,27 @@ class DetailFragment : Fragment() {
         ingredientsList.add(f5)
         val bundle: DetailFragmentArgs by navArgs()
         val food = bundle.food
-        var quantity = 0
+        var quantity = 1
         var totalAmount = 0
         binding.apply {
             val url = "http://kasimadalan.pe.hu/yemekler/resimler/${food.foodImageName}"
             //Glide.with(root).load(url).override(1000, 500).into(imageViewFoodDetail)
-            textViewPriceDetail.text = "₺ ${food.foodPrice.toString()}"
+            textViewPriceDetail.text = "${food.foodPrice.toString()} ₺"
             textViewFoodNameDetail.text = food.foodName
-            binding.textViewAmount.text = "0"
+            textViewAmount.text = "1"
+            textViewTotalAmount.text = "${food.foodPrice.toString()} ₺"
             buttonIncrease.setOnClickListener {
                 quantity++
                 totalAmount = food.foodPrice!! * quantity
-                binding.textViewTotalAmount.text = totalAmount.toString()
+                binding.textViewTotalAmount.text = "${totalAmount} ₺"
                 binding.textViewAmount.text = quantity.toString()
             }
             buttonDecrease.setOnClickListener {
-                if (quantity != 0) {
+                if (quantity != 1) {
                     quantity--
                 }
                 totalAmount = food.foodPrice!! * quantity
-                binding.textViewTotalAmount.text = totalAmount.toString()
+                binding.textViewTotalAmount.text = "${totalAmount} ₺"
                 binding.textViewAmount.text = quantity.toString()
             }
             buttonAddCart.setOnClickListener {
