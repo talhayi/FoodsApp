@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.foodsapp.data.model.Foods
 import com.example.foodsapp.databinding.FoodItemLayoutBinding
-import com.example.foodsapp.ui.view.HomeFragmentDirections
+import com.example.foodsapp.ui.view.food.HomeFragmentDirections
 import com.example.foodsapp.ui.viewmodel.DetailViewModel
 import com.example.foodsapp.util.USERNAME
 import com.example.foodsapp.util.actions

@@ -1,4 +1,4 @@
-package com.example.foodsapp.ui.view
+package com.example.foodsapp.ui.view.food
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -10,9 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.TextView
-import androidx.core.content.ContentProviderCompat
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.foodsapp.R

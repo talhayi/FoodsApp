@@ -12,10 +12,9 @@ import com.bumptech.glide.Glide
 import com.example.foodsapp.R
 import com.example.foodsapp.data.model.Foods
 import com.example.foodsapp.databinding.FavoriteItemLayoutBinding
-import com.example.foodsapp.ui.view.FavoriteFragmentDirections
+import com.example.foodsapp.ui.view.food.FavoriteFragmentDirections
 import com.example.foodsapp.ui.viewmodel.FavoriteViewModel
 import com.example.foodsapp.util.actions
-import com.example.foodsapp.util.showSnackbarWithAction
 import com.google.android.material.snackbar.Snackbar
 
 

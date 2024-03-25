@@ -1,4 +1,4 @@
-package com.example.foodsapp.ui.view
+package com.example.foodsapp.ui.view.food
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -23,6 +23,7 @@ class CartFragment : Fragment() {
     private val viewModel: CartViewModel by viewModels()
     private lateinit var cartAdapter: CartAdapter
     private var cartTotalPrice = 0
+    private var consolidatedCartList = mutableListOf<Cart>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,8 +37,8 @@ class CartFragment : Fragment() {
     }
 
     private fun cartListObserve(){
-        viewModel.cartList.observe(viewLifecycleOwner){cartList->
-            cartAdapter = CartAdapter(cartList, viewModel)
+        viewModel.cartList.observe(viewLifecycleOwner){cartList->//List<Cart>
+            cartAdapter = CartAdapter(viewModel.consolidateCartList(cartList), viewModel)
             binding.recyclerView.adapter = cartAdapter
             binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
             foodTotalPrice(cartList)
