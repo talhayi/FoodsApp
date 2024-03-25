@@ -1,6 +1,8 @@
 package com.example.foodsapp.ui.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.foodsapp.data.model.Foods
 import com.example.foodsapp.data.repository.FoodsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -12,6 +14,11 @@ import javax.inject.Inject
 class DetailViewModel @Inject constructor(
     private val foodsRepository: FoodsRepository
 ): ViewModel() {
+
+    val ingredientList = MutableLiveData<List<Foods>>()
+    init {
+        ingredientList()
+    }
 
     fun addFoodCart( foodName: String,
                      foodImageName: String,
@@ -26,6 +33,12 @@ class DetailViewModel @Inject constructor(
                 foodOrderQuantity,
                 userName
             )
+        }
+    }
+
+    private fun ingredientList() {
+        CoroutineScope(Dispatchers.Main).launch {
+            ingredientList.value = foodsRepository.ingredientList()
         }
     }
 }

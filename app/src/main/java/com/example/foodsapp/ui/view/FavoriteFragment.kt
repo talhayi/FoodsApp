@@ -24,16 +24,22 @@ class FavoriteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentFavoriteBinding.inflate(inflater, container, false)
+        favoriteListObserve()
+        onBackButton()
+        return binding.root
+    }
 
+    private fun favoriteListObserve(){
         viewModel.getFavoriteList().observe(viewLifecycleOwner){favoriteList->
             favoriteAdapter = FavoriteAdapter(favoriteList, viewModel)
             binding.recyclerView.adapter = favoriteAdapter
             binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         }
+    }
 
+    private fun onBackButton(){
         binding.imageViewBack.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.action_favoriteFragment_to_homeFragment)
         }
-        return binding.root
     }
 }

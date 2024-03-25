@@ -17,6 +17,7 @@ import com.example.foodsapp.databinding.FragmentDetailBinding
 import com.example.foodsapp.ui.adapter.IngredientsAdapter
 import com.example.foodsapp.ui.viewmodel.DetailViewModel
 import com.example.foodsapp.ui.viewmodel.FavoriteViewModel
+import com.example.foodsapp.util.USERNAME
 import com.example.foodsapp.util.toast
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,79 +27,93 @@ class DetailFragment : Fragment() {
     private val viewModel: DetailViewModel by viewModels()
     private val favoriteViewModel: FavoriteViewModel by viewModels()
     private lateinit var ingredientsAdapter: IngredientsAdapter
+    private var quantity = 1
+    private var totalAmount = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDetailBinding.inflate(inflater, container, false)
-        val ingredientsList = ArrayList<Foods>()
-        val f1 = Foods(1,"Peynir","cheese")
-        val f2 = Foods(2,"Soğan","onion")
-        val f3 = Foods(3,"Domates","tomato")
-        val f4 = Foods(4,"Biber","capsicum")
-        val f5 = Foods(5,"Mantar","mushroom")
-        ingredientsList.add(f1)
-        ingredientsList.add(f2)
-        ingredientsList.add(f3)
-        ingredientsList.add(f4)
-        ingredientsList.add(f5)
+
         val bundle: DetailFragmentArgs by navArgs()
         val food = bundle.food
-        var quantity = 1
-        var totalAmount = 0
+        showDetail(food)
+        onDecreaseQuantityButton(food)
+        onIncreaseQuantityButton(food)
+        onAddCartButton(food)
+        ingredientListObserve()
+        onAddFavoriteButton(food)
+        favoriteListObserve(food)
+        onBackButton()
+        return binding.root
+    }
+
+    private fun showDetail(food: Foods){
         binding.apply {
             val url = "http://kasimadalan.pe.hu/yemekler/resimler/${food.foodImageName}"
-            //Glide.with(root).load(url).override(1000, 500).into(imageViewFoodDetail)
+            Glide.with(root).load(url).override(1000, 500).into(imageViewFoodDetail)
             textViewPriceDetail.text = "${food.foodPrice.toString()} ₺"
             textViewFoodNameDetail.text = food.foodName
             textViewAmount.text = "1"
             textViewTotalAmount.text = "${food.foodPrice.toString()} ₺"
-            buttonIncrease.setOnClickListener {
-                quantity++
-                totalAmount = food.foodPrice!! * quantity
-                binding.textViewTotalAmount.text = "${totalAmount} ₺"
-                binding.textViewAmount.text = quantity.toString()
-            }
-            buttonDecrease.setOnClickListener {
-                if (quantity != 1) {
-                    quantity--
-                }
-                totalAmount = food.foodPrice!! * quantity
-                binding.textViewTotalAmount.text = "${totalAmount} ₺"
-                binding.textViewAmount.text = quantity.toString()
-            }
-            buttonAddCart.setOnClickListener {
-                if (quantity!=0){
-                    viewModel.addFoodCart(food.foodName!!, food.foodImageName!!, food.foodPrice!!,quantity,"talhayi")
-                    toast("Sepete $quantity adet ${food.foodName} eklenmiştir")
-                }else{
-                    toast("Lütfen adet giriniz")
-                }
+        }
+    }
 
+    private fun onIncreaseQuantityButton(food: Foods){
+        binding.buttonIncrease.setOnClickListener {
+            quantity++
+            totalAmount = food.foodPrice!! * quantity
+            binding.textViewTotalAmount.text = "${totalAmount} ₺"
+            binding.textViewAmount.text = quantity.toString()
+        }
+    }
+    private fun onDecreaseQuantityButton(food: Foods){
+        binding.buttonDecrease.setOnClickListener {
+            if (quantity != 1) {
+                quantity--
+            }
+            totalAmount = food.foodPrice!! * quantity
+            binding.textViewTotalAmount.text = "${totalAmount} ₺"
+            binding.textViewAmount.text = quantity.toString()
+        }
+    }
+
+    private fun onAddCartButton(food: Foods){
+        binding.buttonAddCart.setOnClickListener {
+            if (quantity!=0){
+                viewModel.addFoodCart(food.foodName!!, food.foodImageName!!, food.foodPrice!!,quantity,USERNAME)
+                toast("Sepete $quantity adet ${food.foodName} eklenmiştir")
+            }else{
+                toast("Lütfen adet giriniz")
             }
 
+        }
+    }
+    private fun ingredientListObserve(){
+        viewModel.ingredientList.observe(viewLifecycleOwner){ingredientsList->
             ingredientsAdapter = IngredientsAdapter(ingredientsList, requireContext())
             binding.recyclerViewIngredients.adapter = ingredientsAdapter
             binding.recyclerViewIngredients.layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
-
-            imageViewFavoriteDetail.setOnClickListener {
-                imageViewFavoriteDetail.setColorFilter(ContextCompat.getColor(requireContext(), R.color.red))
-                favoriteViewModel.addFavorite(food)
-            }
-
-            favoriteViewModel.getFavoriteList().observe(viewLifecycleOwner){favoriteList->
-                for (favorite in favoriteList){
-                    if (food.foodId == favorite.foodId){
-                        imageViewFavoriteDetail.setColorFilter(ContextCompat.getColor(requireContext(), R.color.red))
-                    }
+        }
+    }
+    private fun onAddFavoriteButton(food: Foods){
+        binding.imageViewFavoriteDetail.setOnClickListener {
+            binding.imageViewFavoriteDetail.setColorFilter(ContextCompat.getColor(requireContext(), R.color.red))
+            favoriteViewModel.addFavorite(food)
+        }
+    }
+    private fun favoriteListObserve(food: Foods){
+        favoriteViewModel.getFavoriteList().observe(viewLifecycleOwner){favoriteList->
+            for (favorite in favoriteList){
+                if (food.foodId == favorite.foodId){
+                    binding.imageViewFavoriteDetail.setColorFilter(ContextCompat.getColor(requireContext(), R.color.red))
                 }
             }
         }
-
+    }
+    private fun onBackButton(){
         binding.imageViewBack.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.action_detailFragment_to_homeFragment)
         }
-
-        return binding.root
     }
 }

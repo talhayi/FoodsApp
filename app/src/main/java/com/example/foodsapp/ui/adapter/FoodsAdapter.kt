@@ -9,6 +9,7 @@ import com.example.foodsapp.data.model.Foods
 import com.example.foodsapp.databinding.FoodItemLayoutBinding
 import com.example.foodsapp.ui.view.HomeFragmentDirections
 import com.example.foodsapp.ui.viewmodel.DetailViewModel
+import com.example.foodsapp.util.USERNAME
 import com.example.foodsapp.util.actions
 
 class FoodsAdapter (private var foodsList: List<Foods>, var viewModel: DetailViewModel): RecyclerView.Adapter<FoodsAdapter.FoodsViewHolder>() {
@@ -38,7 +39,7 @@ class FoodsAdapter (private var foodsList: List<Foods>, var viewModel: DetailVie
         }
 
         holder.binding.buttonAddCart.setOnClickListener {
-            viewModel.addFoodCart(foods.foodName!!, foods.foodImageName!!, foods.foodPrice!!,1,"talhayi")
+            viewModel.addFoodCart(foods.foodName!!, foods.foodImageName!!, foods.foodPrice!!,1,USERNAME)
         }
     }
 }

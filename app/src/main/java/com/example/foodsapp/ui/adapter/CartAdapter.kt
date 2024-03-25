@@ -52,17 +52,5 @@ class CartAdapter (private var cartsList: List<Cart>, var viewModel: CartViewMod
         holder.binding.imageViewDelete.setOnClickListener {
             viewModel.deleteFoodCart(carts.cartFoodId!!, carts.userName!!)
         }
-       /* holder.binding.cardViewRestaurant.setOnClickListener {
-            val actions = HomeFragmentDirections.actionHomeFragmentToDetailFragment(foods)
-            Navigation.actions(it, actions)
-        }
-
-        holder.binding.imageViewAdd.setOnClickListener {
-            viewModel.addFoodCart(foods.foodName!!, foods.foodImageName!!, foods.foodPrice!!,2,"talhayi")
-        }
-
-        holder.binding.deleteIV.setOnClickListener {
-             viewModel.delete(contacts.personId)
-         }*/
     }
 }

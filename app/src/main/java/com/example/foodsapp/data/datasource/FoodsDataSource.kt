@@ -19,6 +19,22 @@ class FoodsDataSource(
             return@withContext foodsApi.foodList().foods
         }
 
+    suspend fun ingredientList(): List<Foods> =
+        withContext(Dispatchers.IO){
+            val ingredientsList = ArrayList<Foods>()
+            val f1 = Foods(1,"Peynir","cheese")
+            val f2 = Foods(2,"Soğan","onion")
+            val f3 = Foods(3,"Domates","tomato")
+            val f4 = Foods(4,"Biber","capsicum")
+            val f5 = Foods(5,"Mantar","mushroom")
+            ingredientsList.add(f1)
+            ingredientsList.add(f2)
+            ingredientsList.add(f3)
+            ingredientsList.add(f4)
+            ingredientsList.add(f5)
+            return@withContext ingredientsList
+        }
+
     suspend fun addFoodCart(
         foodName: String,
         foodImageName: String,

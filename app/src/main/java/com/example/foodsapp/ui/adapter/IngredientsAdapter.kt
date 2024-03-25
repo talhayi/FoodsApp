@@ -22,14 +22,9 @@ class IngredientsAdapter (private var ingredientsList: List<Foods>, private var 
     }
     override fun onBindViewHolder(holder: IngredientsViewHolder, position: Int) {
         val ingredients = ingredientsList[position]
-        //val url = "http://kasimadalan.pe.hu/yemekler/resimler/${ingredients.foodImageName}"
         holder.binding.apply {
-            //Glide.with(root).load(url).override(1000, 500).into(imageViewIngredients)
             holder.binding.imageViewIngredients.setImageResource(mContext.resources.getIdentifier(ingredients.foodImageName, "drawable", mContext.packageName))
             textViewIngredients.text = ingredients.foodName
-
         }
-
-
     }
 }

@@ -13,6 +13,9 @@ class FoodsRepository(
     suspend fun foodList(): List<Foods> =
         foodsDataSource.foodList()
 
+    suspend fun ingredientList(): List<Foods> =
+        foodsDataSource.ingredientList()
+
     suspend fun addFoodCart(
         foodName: String,
         foodImageName: String,

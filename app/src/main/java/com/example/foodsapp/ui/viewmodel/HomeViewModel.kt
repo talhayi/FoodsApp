@@ -20,7 +20,7 @@ class HomeViewModel @Inject constructor(
         foodList()
     }
 
-    fun foodList(){
+    private fun foodList(){
         CoroutineScope(Dispatchers.Main).launch {
             foodList.value = foodsRepository.foodList()
         }

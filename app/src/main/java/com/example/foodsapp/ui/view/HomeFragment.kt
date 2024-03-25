@@ -35,18 +35,29 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        foodListObserve()
+        onFilterButton()
+        return binding.root
+    }
 
+    private fun foodListObserve(){
         viewModel.foodList.observe(viewLifecycleOwner){foodList->
             foodsAdapter = FoodsAdapter(foodList, detailViewModel)
             binding.recyclerView.adapter = foodsAdapter
             binding.recyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             setFilterFoodName()
         }
-        binding.constraintLayout.setOnClickListener {
-            filterAlertDialog()
-        }
+    }
 
-        return binding.root
+    private fun setFilterFoodName(){
+        binding.editTextFilter.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val keyword = s.toString().trim()
+                filterName(keyword)
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
     }
 
     private fun filterName(keyword: String){
@@ -56,18 +67,11 @@ class HomeFragment : Fragment() {
         binding.recyclerView.adapter = foodsAdapter
         binding.recyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
     }
-    private fun filterPrice(min: Int, max: Int){
-        val filterFoodList = viewModel.foodList.value?.filter { it.foodPrice!! in min..<max }
-        binding.textViewFilter.text = "${filterFoodList?.size ?: 0} Sonuç Bulundu"
-        foodsAdapter = FoodsAdapter(filterFoodList!!, detailViewModel)
-        binding.recyclerView.adapter = foodsAdapter
-        binding.recyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-    }
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private fun alertDialogBackground(dialogBuilder: MaterialAlertDialogBuilder) {
-        val drawableResId = R.drawable.background_alert_dialog
-        val backgroundDrawable = resources.getDrawable(drawableResId, null)
-        dialogBuilder.background = backgroundDrawable
+
+    private fun onFilterButton(){
+        binding.constraintLayout.setOnClickListener {
+            filterAlertDialog()
+        }
     }
 
     private fun filterAlertDialog() {
@@ -88,16 +92,20 @@ class HomeFragment : Fragment() {
         }
         alertDialogBackground(alertDialog)
         alertDialog.show()
-
     }
-    private fun setFilterFoodName(){
-        binding.editTextFilter.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                val keyword = s.toString().trim()
-                filterName(keyword)
-            }
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        })
+
+    private fun filterPrice(min: Int, max: Int){
+        val filterFoodList = viewModel.foodList.value?.filter { it.foodPrice!! in min..<max }
+        binding.textViewFilter.text = "${filterFoodList?.size ?: 0} Sonuç Bulundu"
+        foodsAdapter = FoodsAdapter(filterFoodList!!, detailViewModel)
+        binding.recyclerView.adapter = foodsAdapter
+        binding.recyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun alertDialogBackground(dialogBuilder: MaterialAlertDialogBuilder) {
+        val drawableResId = R.drawable.background_alert_dialog
+        val backgroundDrawable = resources.getDrawable(drawableResId, null)
+        dialogBuilder.background = backgroundDrawable
     }
 }

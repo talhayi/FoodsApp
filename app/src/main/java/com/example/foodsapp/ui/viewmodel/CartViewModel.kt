@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.foodsapp.data.model.Cart
 import com.example.foodsapp.data.repository.FoodsRepository
+import com.example.foodsapp.util.USERNAME
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -36,5 +37,20 @@ class CartViewModel @Inject constructor(
                 cartList(userName)
             }
         }
+    }
+
+    fun foodTotalPrice(): Int {
+        var foodTotalPrice = 0
+        cartList.value?.forEach { cartList ->
+            foodTotalPrice += cartList.foodPrice!! * cartList.foodOrderQuantity!!
+        }
+        return foodTotalPrice
+    }
+
+    fun cartApprove(){
+        for (cart in cartList.value!!) {
+            deleteFoodCart(cart.cartFoodId!!, USERNAME)
+        }
+        cartList.value = emptyList()
     }
 }
