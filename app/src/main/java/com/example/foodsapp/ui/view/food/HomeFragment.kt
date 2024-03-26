@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.foodsapp.R
 import com.example.foodsapp.databinding.FragmentHomeBinding
 import com.example.foodsapp.ui.adapter.FoodsAdapter
+import com.example.foodsapp.ui.viewmodel.AuthViewModel
 import com.example.foodsapp.ui.viewmodel.DetailViewModel
 import com.example.foodsapp.ui.viewmodel.HomeViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -25,6 +26,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModels()
     private val detailViewModel: DetailViewModel by viewModels()
+    private val authViewModel: AuthViewModel by viewModels()
     private lateinit var foodsAdapter: FoodsAdapter
     private lateinit var alertDialog: MaterialAlertDialogBuilder
     override fun onCreateView(
@@ -34,6 +36,10 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         foodListObserve()
         onFilterButton()
+        binding.imageViewCancel.setOnClickListener {
+            authViewModel.logout()
+            requireActivity().finish()
+        }
         return binding.root
     }
 

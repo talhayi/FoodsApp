@@ -2,7 +2,9 @@ package com.example.foodsapp.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.foodsapp.data.datasource.AuthDataSource
 import com.example.foodsapp.data.datasource.FoodsDataSource
+import com.example.foodsapp.data.repository.AuthRepository
 import com.example.foodsapp.data.repository.FoodsRepository
 import com.example.foodsapp.retrofit.ApiUtils
 import com.example.foodsapp.retrofit.FoodsApi
@@ -19,9 +21,13 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
     @Provides
     @Singleton
-    fun provideFoodsDataSource(foodsDao: FoodsDao, foodsApi: FoodsApi): FoodsDataSource {
+    fun provideFoodsDataSource(
+        foodsDao: FoodsDao,
+        foodsApi: FoodsApi,
+    ): FoodsDataSource {
         return FoodsDataSource(foodsDao, foodsApi)
     }
 
@@ -42,6 +48,21 @@ object AppModule {
     fun provideFoodsDao(@ApplicationContext context: Context): FoodsDao{
         val db = Room.databaseBuilder(context, FoodsDatabase::class.java,"foods.sqlite").build()
         return db.getFoodsDao()
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideAuthDataSource(
+        firebaseAuth: FirebaseAuth
+    ): AuthDataSource {
+        return AuthDataSource(firebaseAuth)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAuthRepository(authDataSource: AuthDataSource): AuthRepository {
+        return AuthRepository(authDataSource)
     }
 
     @Provides

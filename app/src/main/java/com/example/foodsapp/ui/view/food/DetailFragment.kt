@@ -17,7 +17,6 @@ import com.example.foodsapp.databinding.FragmentDetailBinding
 import com.example.foodsapp.ui.adapter.IngredientsAdapter
 import com.example.foodsapp.ui.viewmodel.DetailViewModel
 import com.example.foodsapp.ui.viewmodel.FavoriteViewModel
-import com.example.foodsapp.util.USERNAME
 import com.example.foodsapp.util.toast
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,10 +36,11 @@ class DetailFragment : Fragment() {
 
         val bundle: DetailFragmentArgs by navArgs()
         val food = bundle.food
+        val userName = viewModel.currentUser()?.email
         showDetail(food)
         onDecreaseQuantityButton(food)
         onIncreaseQuantityButton(food)
-        onAddCartButton(food)
+        onAddCartButton(food, userName!!)
         ingredientListObserve()
         onAddFavoriteButton(food)
         favoriteListObserve(food)
@@ -78,10 +78,10 @@ class DetailFragment : Fragment() {
         }
     }
 
-    private fun onAddCartButton(food: Foods){
+    private fun onAddCartButton(food: Foods, userName: String){
         binding.buttonAddCart.setOnClickListener {
             if (quantity!=0){
-                viewModel.addFoodCart(food.foodName!!, food.foodImageName!!, food.foodPrice!!,quantity,USERNAME)
+                viewModel.addFoodCart(food.foodName!!, food.foodImageName!!, food.foodPrice!!,quantity,userName)
                 toast("Sepete $quantity adet ${food.foodName} eklenmiştir")
             }else{
                 toast("Lütfen adet giriniz")

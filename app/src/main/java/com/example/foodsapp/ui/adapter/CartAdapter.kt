@@ -6,7 +6,6 @@ import com.bumptech.glide.Glide
 import com.example.foodsapp.data.model.Cart
 import com.example.foodsapp.databinding.CartItemLayoutBinding
 import com.example.foodsapp.ui.viewmodel.CartViewModel
-import com.example.foodsapp.util.USERNAME
 
 class CartAdapter (private var cartsList: List<Cart>, var viewModel: CartViewModel): RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
@@ -23,6 +22,7 @@ class CartAdapter (private var cartsList: List<Cart>, var viewModel: CartViewMod
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
         val carts = cartsList[position]
         var totalAmount = 0
+        val userName = viewModel.currentUser()?.email
         val url = "http://kasimadalan.pe.hu/yemekler/resimler/${carts.foodImageName}"
         holder.binding.apply {
             textViewFoodNameCart.text = carts.foodName
@@ -39,7 +39,7 @@ class CartAdapter (private var cartsList: List<Cart>, var viewModel: CartViewMod
                 totalAmount = carts.foodPrice!! * quantity
                 textViewTotalPrice.text = "$totalAmount ₺"
                 textViewQuantity.text = quantity.toString()
-                viewModel.addFoodCart(carts.foodName!!,carts.foodImageName!!,carts.foodPrice!!,1, USERNAME)
+                viewModel.addFoodCart(carts.foodName!!,carts.foodImageName!!,carts.foodPrice!!,1, userName!!)
             }
             buttonDecrease.setOnClickListener {
                 if (quantity != 1) {
@@ -48,7 +48,7 @@ class CartAdapter (private var cartsList: List<Cart>, var viewModel: CartViewMod
                 totalAmount = carts.foodPrice!! * quantity
                 textViewTotalPrice.text = "$totalAmount ₺"
                 textViewQuantity.text = quantity.toString()
-                viewModel.addFoodCart(carts.foodName!!,carts.foodImageName!!,carts.foodPrice!!,-1, USERNAME)
+                viewModel.addFoodCart(carts.foodName!!,carts.foodImageName!!,carts.foodPrice!!,-1, userName!!)
             }
         }
 

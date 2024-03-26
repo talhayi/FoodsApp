@@ -4,8 +4,8 @@ import com.example.foodsapp.data.datasource.FoodsDataSource
 import com.example.foodsapp.data.model.CRUDResponse
 import com.example.foodsapp.data.model.Cart
 import com.example.foodsapp.data.model.Foods
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.example.foodsapp.util.UIState
+import com.google.firebase.auth.FirebaseUser
 
 class FoodsRepository(
     private val foodsDataSource: FoodsDataSource

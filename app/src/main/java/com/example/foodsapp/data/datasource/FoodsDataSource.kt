@@ -1,18 +1,25 @@
 package com.example.foodsapp.data.datasource
 
+import android.util.Log
 import com.example.foodsapp.data.model.CRUDResponse
 import com.example.foodsapp.data.model.Cart
-import com.example.foodsapp.data.model.CartResponse
 import com.example.foodsapp.data.model.Foods
 import com.example.foodsapp.retrofit.FoodsApi
 import com.example.foodsapp.room.FoodsDao
+import com.example.foodsapp.util.UIState
+import com.google.firebase.auth.FirebaseAuthEmailException
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
-import retrofit2.http.Field
 
 class FoodsDataSource(
     private val foodsDao: FoodsDao,
-    private val foodsApi: FoodsApi
+    private val foodsApi: FoodsApi,
+
 ) {
     suspend fun foodList(): List<Foods> =
         withContext(Dispatchers.IO) {

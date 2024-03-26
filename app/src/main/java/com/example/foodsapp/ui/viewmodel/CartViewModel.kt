@@ -3,8 +3,9 @@ package com.example.foodsapp.ui.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.foodsapp.data.model.Cart
+import com.example.foodsapp.data.repository.AuthRepository
 import com.example.foodsapp.data.repository.FoodsRepository
-import com.example.foodsapp.util.USERNAME
+import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CartViewModel @Inject constructor(
-    private val foodsRepository: FoodsRepository
+    private val foodsRepository: FoodsRepository,
+    private val authRepository: AuthRepository
 ): ViewModel() {
 
     val cartList = MutableLiveData<List<Cart>>()
@@ -49,7 +51,7 @@ class CartViewModel @Inject constructor(
 
     fun cartApprove(){
         for (cart in cartList.value!!) {
-            deleteFoodCart(cart.cartFoodId!!, USERNAME)
+            deleteFoodCart(cart.cartFoodId!!, currentUser()?.email!!)
         }
         cartList.value = emptyList()
     }
@@ -63,7 +65,7 @@ class CartViewModel @Inject constructor(
     ) {
         CoroutineScope(Dispatchers.Main).launch {
             try {
-                val cartList = foodsRepository.cartList(USERNAME)
+                val cartList = foodsRepository.cartList(currentUser()?.email!!)
                 if (cartList.isNotEmpty()) {
                     for (cart in cartList) {
                         if (cart.foodName == foodName) {
@@ -75,8 +77,8 @@ class CartViewModel @Inject constructor(
                                 newQuantity,
                                 userName
                             )
-                            cartList(USERNAME)
-                            foodsRepository.deleteFoodCart(cart.cartFoodId!!, USERNAME)
+                            cartList(currentUser()?.email!!)
+                            foodsRepository.deleteFoodCart(cart.cartFoodId!!, currentUser()?.email!!)
                             return@launch // Döngüden çık
                         }
                     }
@@ -99,5 +101,9 @@ class CartViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    fun currentUser(): FirebaseUser? {
+        return authRepository.currentUser()
     }
 }

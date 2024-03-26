@@ -9,7 +9,6 @@ import com.example.foodsapp.data.model.Foods
 import com.example.foodsapp.databinding.FoodItemLayoutBinding
 import com.example.foodsapp.ui.view.food.HomeFragmentDirections
 import com.example.foodsapp.ui.viewmodel.DetailViewModel
-import com.example.foodsapp.util.USERNAME
 import com.example.foodsapp.util.actions
 
 class FoodsAdapter (private var foodsList: List<Foods>, var viewModel: DetailViewModel): RecyclerView.Adapter<FoodsAdapter.FoodsViewHolder>() {
@@ -27,6 +26,7 @@ class FoodsAdapter (private var foodsList: List<Foods>, var viewModel: DetailVie
     override fun onBindViewHolder(holder: FoodsViewHolder, position: Int) {
         val foods = foodsList[position]
         val url = "http://kasimadalan.pe.hu/yemekler/resimler/${foods.foodImageName}"
+        val userName = viewModel.currentUser()?.email
         holder.binding.apply {
             textViewFoodName.text = foods.foodName
             textViewPrice.text = "₺ ${foods.foodPrice}"
@@ -39,7 +39,7 @@ class FoodsAdapter (private var foodsList: List<Foods>, var viewModel: DetailVie
         }
 
         holder.binding.buttonAddCart.setOnClickListener {
-            viewModel.addFoodCart(foods.foodName!!, foods.foodImageName!!, foods.foodPrice!!,1,USERNAME)
+            viewModel.addFoodCart(foods.foodName!!, foods.foodImageName!!, foods.foodPrice!!,1,userName!!)
         }
     }
 }

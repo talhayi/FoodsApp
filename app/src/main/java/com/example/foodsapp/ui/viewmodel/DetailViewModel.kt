@@ -3,8 +3,9 @@ package com.example.foodsapp.ui.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.foodsapp.data.model.Foods
+import com.example.foodsapp.data.repository.AuthRepository
 import com.example.foodsapp.data.repository.FoodsRepository
-import com.example.foodsapp.util.USERNAME
+import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -13,10 +14,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    private val foodsRepository: FoodsRepository
+    private val foodsRepository: FoodsRepository,
+    private val authRepository: AuthRepository
 ): ViewModel() {
 
     val ingredientList = MutableLiveData<List<Foods>>()
+    val _userName = currentUser()?.email
     init {
         ingredientList()
     }
@@ -30,7 +33,7 @@ class DetailViewModel @Inject constructor(
     ) {
         CoroutineScope(Dispatchers.Main).launch {
             try {
-                val cartList = foodsRepository.cartList(USERNAME)
+                val cartList = foodsRepository.cartList(_userName!!)
                 if (cartList.isNotEmpty()) {
                     for (cart in cartList) {
                         if (cart.foodName == foodName) {
@@ -42,7 +45,7 @@ class DetailViewModel @Inject constructor(
                                 newQuantity,
                                 userName
                             )
-                            foodsRepository.deleteFoodCart(cart.cartFoodId!!, USERNAME)
+                            foodsRepository.deleteFoodCart(cart.cartFoodId!!, _userName)
                             return@launch // Döngüden çık
                         }
                     }
@@ -72,4 +75,9 @@ class DetailViewModel @Inject constructor(
             ingredientList.value = foodsRepository.ingredientList()
         }
     }
+
+    fun currentUser(): FirebaseUser? {
+        return authRepository.currentUser()
+    }
+
 }

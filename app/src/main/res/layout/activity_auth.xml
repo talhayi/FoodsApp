@@ -7,14 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".ui.view.auth.AuthActivity">
 
-    <ImageView
-        android:id="@+id/imageView11"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView2"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/splash_screen" />
+        app:navGraph="@navigation/auth_navigation" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,7 +13,6 @@ import com.example.foodsapp.data.model.Cart
 import com.example.foodsapp.databinding.FragmentCartBinding
 import com.example.foodsapp.ui.adapter.CartAdapter
 import com.example.foodsapp.ui.viewmodel.CartViewModel
-import com.example.foodsapp.util.USERNAME
 import com.example.foodsapp.util.toast
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,7 +30,8 @@ class CartFragment : Fragment() {
         binding = FragmentCartBinding.inflate(inflater, container, false)
         cartListObserve()
         onBackButton()
-        viewModel.cartList(USERNAME)
+        val userName = viewModel.currentUser()?.email
+        viewModel.cartList(userName!!)
         return binding.root
     }
 
