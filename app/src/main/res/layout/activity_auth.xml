@@ -7,4 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".ui.view.auth.AuthActivity">
 
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/splash_screen" />
 </androidx.constraintlayout.widget.ConstraintLayout>
