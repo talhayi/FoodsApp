@@ -53,4 +53,51 @@ class CartViewModel @Inject constructor(
         }
         cartList.value = emptyList()
     }
+
+    fun addFoodCart(
+        foodName: String,
+        foodImageName: String,
+        foodPrice: Int,
+        foodOrderQuantity: Int,
+        userName: String
+    ) {
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val cartList = foodsRepository.cartList(USERNAME)
+                if (cartList.isNotEmpty()) {
+                    for (cart in cartList) {
+                        if (cart.foodName == foodName) {
+                            val newQuantity = cart.foodOrderQuantity!! + foodOrderQuantity
+                            foodsRepository.addFoodCart(
+                                foodName,
+                                foodImageName,
+                                foodPrice,
+                                newQuantity,
+                                userName
+                            )
+                            cartList(USERNAME)
+                            foodsRepository.deleteFoodCart(cart.cartFoodId!!, USERNAME)
+                            return@launch // Döngüden çık
+                        }
+                    }
+                }
+                // Döngüden çıkmadan buraya gelirse, aynı isimde ürün yok demektir
+                foodsRepository.addFoodCart(
+                    foodName,
+                    foodImageName,
+                    foodPrice,
+                    foodOrderQuantity,
+                    userName
+                )
+            } catch (_: Exception) {
+                foodsRepository.addFoodCart(
+                    foodName,
+                    foodImageName,
+                    foodPrice,
+                    foodOrderQuantity,
+                    userName
+                )
+            }
+        }
+    }
 }

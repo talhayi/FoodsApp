@@ -6,6 +6,7 @@ import com.bumptech.glide.Glide
 import com.example.foodsapp.data.model.Cart
 import com.example.foodsapp.databinding.CartItemLayoutBinding
 import com.example.foodsapp.ui.viewmodel.CartViewModel
+import com.example.foodsapp.util.USERNAME
 
 class CartAdapter (private var cartsList: List<Cart>, var viewModel: CartViewModel): RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
@@ -36,16 +37,18 @@ class CartAdapter (private var cartsList: List<Cart>, var viewModel: CartViewMod
             buttonIncrease.setOnClickListener {
                 quantity++
                 totalAmount = carts.foodPrice!! * quantity
-                textViewTotalPrice.text = totalAmount.toString()
+                textViewTotalPrice.text = "$totalAmount ₺"
                 textViewQuantity.text = quantity.toString()
+                viewModel.addFoodCart(carts.foodName!!,carts.foodImageName!!,carts.foodPrice!!,1, USERNAME)
             }
             buttonDecrease.setOnClickListener {
                 if (quantity != 1) {
                     quantity--
                 }
                 totalAmount = carts.foodPrice!! * quantity
-                textViewTotalPrice.text = totalAmount.toString()
+                textViewTotalPrice.text = "$totalAmount ₺"
                 textViewQuantity.text = quantity.toString()
+                viewModel.addFoodCart(carts.foodName!!,carts.foodImageName!!,carts.foodPrice!!,-1, USERNAME)
             }
         }
 
