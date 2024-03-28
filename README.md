@@ -4,9 +4,9 @@ User authentication and registration are done via Firebase. A list of meals is c
 Users can search and filter among foods. Upon clicking on foods details, they can see and add them to the cart. 
 In the cart page, they can list selected foods, set quantities, and view the order summary. 
 Additionally, they can mark a food as favorite and view their favorite foods on the favorites page.
-- MVVM architecture is used
 
 # Features
+- MVVM architecture is used
 - User authentication and registration via Firebase 
 - Fetching food data from an API 
 - Listing foods, searching, and filtering 
@@ -27,7 +27,6 @@ Additionally, they can mark a food as favorite and view their favorite foods on 
 |Retrofit |2.9.0|
 |Room |2.6.1|
 |Glide |4.13.2|
-
 
 ## Images in FoodApp 
 
