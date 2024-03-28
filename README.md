@@ -1,9 +1,10 @@
 # Food App
-This application is a platform where users can browse, view details, add to cart, and mark as favorite foods.
+- This application is a platform where users can browse, view details, add to cart, and mark as favorite foods.
 User authentication and registration are done via Firebase. A list of meals is created based on the data fetched from an API. 
 Users can search and filter among foods. Upon clicking on foods details, they can see and add them to the cart. 
 In the cart page, they can list selected foods, set quantities, and view the order summary. 
 Additionally, they can mark a food as favorite and view their favorite foods on the favorites page.
+- MVVM architecture is used
 
 # Features
 - User authentication and registration via Firebase 
